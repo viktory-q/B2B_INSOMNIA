@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали кейса</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="header-title">Детали кейса</h1>
+                <p class="header-subtitle">Полная информация о реализации проекта</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-controls">
+                <a href="index.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Назад к кейсам
+                </a>
+                <div class="stats">
+                    <span class="stats-count">Кейс #<span id="caseNumber"></span></span>
+                </div>
+            </div>
+
+            <div id="caseDetail" class="case-detail"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">О компании</a>
+                    <a href="#" class="footer-link">Контакты</a>
+                    <a href="#" class="footer-link">Политика конфиденциальности</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2025 "Insomnia". Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="cases.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const caseDetail = document.getElementById('caseDetail');
+            const caseNumber = document.getElementById('caseNumber');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const caseId = parseInt(urlParams.get('id'));
+            
+            const caseItem = caseStudies.find(c => c.id === caseId);
+            
+            if (!caseItem) {
+                caseDetail.innerHTML = `
+                    <div class="error-message">
+                        <h2>Кейс не найден</h2>
+                        <p>Запрошенный кейс не существует.</p>
+                        <a href="index.html" class="btn btn-primary">Вернуться к списку кейсов</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            caseNumber.textContent = caseId;
+            
+            let complexityClass = 'complexity-medium';
+            if (caseItem.complexity === 'Сложная') complexityClass = 'complexity-high';
+            
+            const metricsHTML = caseItem.metrics.map(metric => 
+                `<span class="metric-tag">${metric}</span>`
+            ).join('');
+            
+            let resultsHTML = '';
+            for (const [key, value] of Object.entries(caseItem.results)) {
+                let label = key;
+                switch(key) {
+                    case 'mql': label = 'MQL (Marketing Qualified Lead)'; break;
+                    case 'brandRecall': label = 'Узнаваемость бренда'; break;
+                    case 'sql': label = 'SQL (Sales Qualified Lead)'; break;
+                    case 'winRate': label = 'Win Rate'; break;
+                    case 'salesCycle': label = 'Цикл продаж'; break;
+                    case 'profit': label = 'Рост прибыли'; break;
+                    case 'brandAwareness': label = 'Осведомленность о бренде'; break;
+                    case 'ctr': label = 'CTR'; break;
+                    case 'ltv': label = 'LTV'; break;
+                    case 'nps': label = 'NPS'; break;
+                    case 'searchTraffic': label = 'Поисковый трафик'; break;
+                    case 'conversions': label = 'Конверсии'; break;
+                    case 'cpl': label = 'CPL'; break;
+                    case 'roi': label = 'ROI'; break;
+                    case 'leads': label = 'Заявки'; break;
+                    case 'reach': label = 'Охват'; break;
+                }
+                
+                resultsHTML += `
+                    <div class="result-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <strong>${label}</strong>
+                            <span class="result-value">${value}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            let insightsHTML = '';
+            if (caseItem.keyInsights && caseItem.keyInsights.length > 0) {
+                insightsHTML = caseItem.keyInsights.map(insight => `
+                    <div class="insight-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="insight-text">${insight}</span>
+                    </div>
+                `).join('');
+            }
+            
+            caseDetail.innerHTML = `
+                <div class="case-detail-header">
+                    <div class="case-detail-title">
+                        <h2>${caseItem.title}</h2>
+                        <div class="case-detail-meta">
+                            <span class="company-badge">${caseItem.company}</span>
+                            <span class="case-complexity ${complexityClass}">${caseItem.complexity}</span>
+                            <span class="case-result-badge">${caseItem.result}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-detail-content">
+                    <div class="case-section">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-file-alt"></i>
+                            О проекте
+                        </h3>
+                        <div class="case-section-content">
+                            <p>${caseItem.fullDescription}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-industry"></i>
+                            Направление деятельности
+                        </h3>
+                        <div class="case-section-content">
+                            <div class="case-industries">
+                                ${caseItem.industry.map(ind => `<span class="industry-tag">${ind}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-ruler"></i>
+                            Отслеживаемые метрики
+                        </h3>
+                        <div class="case-section-content">
+                            <div class="case-metrics">
+                                ${metricsHTML}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Ключевые выводы и инсайты
+                        </h3>
+                        <div class="case-section-content">
+                            <div class="insights-grid">
+                                ${insightsHTML}
+                            </div>
+                        </div>
+                    </div>
+                    
+                                       <div class="case-section implementation-details">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-cogs"></i>
+                            Детали реализации
+                        </h3>
+                        <div class="case-section-content">
+                            <div class="implementation-details-grid">
+                                ${caseItem.implementationTime ? `
+                                    <div class="implementation-item">
+                                        <span class="implementation-label">Срок реализации</span>
+                                        <span class="implementation-value">${caseItem.implementationTime}</span>
+                                    </div>
+                                ` : ''}
+                                ${caseItem.budget ? `
+                                    <div class="implementation-item">
+                                        <span class="implementation-label">Бюджет</span>
+                                        <span class="implementation-value">${caseItem.budget}</span>
+                                    </div>
+                                ` : ''}
+                                ${caseItem.teamSize ? `
+                                    <div class="implementation-item">
+                                        <span class="implementation-label">Команда проекта</span>
+                                        <span class="implementation-value">${caseItem.teamSize}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h3 class="case-section-title">
+                            <i class="fas fa-chart-line"></i>
+                            Достигнутые результаты
+                        </h3>
+                        <div class="case-section-content">
+                            <div class="results-grid">
+                                ${resultsHTML}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

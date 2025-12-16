@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Факторы успеха вашей B2B-рекламы</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="header-title">Факторы успеха вашей B2B-рекламы</h1>
+                <p class="header-subtitle">Систематизированные данные по работающим связкам, статистика и готовые шаблоны для внедрения.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-controls">
+                <button id="openFilters" class="btn btn-primary">
+                    <i class="fas fa-filter"></i> Добавить фильтр
+                </button>
+                <div class="stats">
+                    <span id="casesCount" class="stats-count">4 кейса</span>
+                </div>
+            </div>
+
+            <div class="cases-grid" id="casesContainer"></div>
+
+            <div class="info-banner">
+                <div class="info-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <p>Используйте фильтры для поиска подходящих кейсов по вашему направлению и задачам.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">О компании</a>
+                    <a href="#" class="footer-link">Контакты</a>
+                    <a href="#" class="footer-link">Политика конфиденциальности</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2025 "Insomnia". Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="filterModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-sliders-h"></i>
+                    <h2>Добавить фильтр</h2>
+                </div>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="filters-grid">
+                    <div class="filter-section">
+                        <div class="filter-section-header">
+                            <i class="fas fa-industry"></i>
+                            <h3>Направление деятельности</h3>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="industry" value="IT">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">IT</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="industry" value="Электронная коммерция">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Электронная коммерция</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="industry" value="Логистика">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Логистика</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-section-header">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>Результат</h3>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="result" value="75% - 100%">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">75% - 100%</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="result" value="50% - 75%">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">50% - 75%</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-section-header">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Сложность</h3>
+                        </div>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="complexity" value="Низкая">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Низкая</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="complexity" value="Средняя">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Средняя</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="complexity" value="Сложная">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Сложная</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-section-header">
+                            <i class="fas fa-ruler"></i>
+                            <h3>Метрики</h3>
+                        </div>
+                        <div class="filter-options metrics-grid">
+                            <label class="filter-option metric-tooltip" data-tooltip="Лид, готовый к передаче в отдел продаж">
+                                <input type="checkbox" name="metrics" value="MQL">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">MQL</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Вспоминаемость бренда - способность потребителя вспомнить бренд">
+                                <input type="checkbox" name="metrics" value="Brand Recall">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Brand Recall</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Sales Qualified Lead - лид, готовый к покупке">
+                                <input type="checkbox" name="metrics" value="SQL">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">SQL</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Cost Per Mille - стоимость тысячи показов">
+                                <input type="checkbox" name="metrics" value="CPM">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">CPM</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Click-Through Rate - отношение кликов к показам">
+                                <input type="checkbox" name="metrics" value="CTR">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">CTR</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Cost Per Lead - стоимость привлечения лида">
+                                <input type="checkbox" name="metrics" value="CPL">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">CPL</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Пожизненная ценность клиента">
+                                <input type="checkbox" name="metrics" value="LTV">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">LTV</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Net Promoter Score - индекс лояльности клиентов">
+                                <input type="checkbox" name="metrics" value="NPS">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">NPS</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Рост поисковых запросов по бренду">
+                                <input type="checkbox" name="metrics" value="Search Lift">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Search Lift</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Рост посещаемости сайта">
+                                <input type="checkbox" name="metrics" value="Visit Lift">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Visit Lift</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Охват аудитории">
+                                <input type="checkbox" name="metrics" value="Reach">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Reach</span>
+                            </label>
+                            <label class="filter-option metric-tooltip" data-tooltip="Среднее количество контактов с рекламой на одного пользователя">
+                                <input type="checkbox" name="metrics" value="Frequency">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Frequency</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Количество показов рекламных материалов">
+                                <input type="checkbox" name="metrics" value="Impressions">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Impressions</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Количество просмотров видеорекламы">
+                                <input type="checkbox" name="metrics" value="Video Views">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Video Views</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Количество уникальных посетителей сайта">
+                                <input type="checkbox" name="metrics" value="Website Visitors">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Website Visitors</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Среднее время реакции на входящий лид">
+                                <input type="checkbox" name="metrics" value="Time to Response">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Time to Response</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Конверсия лидов в клиентов">
+                                <input type="checkbox" name="metrics" value="Lead-to-Customer Rate">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Lead-to-Customer Rate</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Доля выигранных сделок от общего числа возможностей">
+                                <input type="checkbox" name="metrics" value="Win Rate">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Win Rate</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Средняя длительность цикла сделки">
+                                <input type="checkbox" name="metrics" value="Sales Cycle">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Sales Cycle</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Средний размер сделки">
+                                <input type="checkbox" name="metrics" value="Average Deal Size">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Average Deal Size</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Доля клиентов, продолжающих сотрудничество">
+                                <input type="checkbox" name="metrics" value="Customer Retention Rate">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Customer Retention Rate</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Доля повторных покупок">
+                                <input type="checkbox" name="metrics" value="Repeat Purchase Rate">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">Repeat Purchase Rate</span>
+                            </label>
+
+                            <label class="filter-option metric-tooltip" data-tooltip="Возврат инвестиций в маркетинг">
+                                <input type="checkbox" name="metrics" value="ROI/ROMI">
+                                <span class="filter-checkbox"></span>
+                                <span class="filter-label">ROI / ROMI</span>
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="resetFilters" class="btn btn-secondary">Сбросить</button>
+                <button id="applyFilters" class="btn btn-primary">Применить фильтры</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cases.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
